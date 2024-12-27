@@ -1,0 +1,13 @@
+{
+    "player": {
+        "name": "",
+        "current_level": 1,
+        "pokemon": [],
+        "items": [],
+        "progress": {
+            "badges": 0,
+            "pokemon_seen": 0,
+            "pokemon_caught": 0
+        }
+    }
+}

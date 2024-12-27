@@ -1,0 +1,9 @@
+{
+    "difficulty": "normal",
+    "screen_width": 800,
+    "screen_height": 600,
+    "fullscreen": false,
+    "sound_enabled": true,
+    "music_volume": 0.7,
+    "sfx_volume": 1.0
+}

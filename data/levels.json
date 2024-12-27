@@ -1,0 +1,12 @@
+{
+    "levels": [
+        {
+            "id": 1,
+            "name": "Route 1",
+            "difficulty": "easy",
+            "pokemon_min_level": 5,
+            "pokemon_max_level": 10,
+            "available_pokemon": ["pidgey", "rattata", "caterpie"]
+        }
+    ]
+}

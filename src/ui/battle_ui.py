@@ -1,0 +1,3 @@
+"""
+Interfaz para las batallas
+"""
