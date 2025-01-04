@@ -9,8 +9,10 @@ sys.path.append(ruta_raiz)
 
 class DB_PokeAPI():
     """Manejador de base de datos SQLite para almacenar información de Pokémon"""
-    def __init__(self):
-        pass
+    def __init__(self, pokemon=None, lvl=None, bot=None):
+        self.pokemon = pokemon
+        self.lvl = lvl
+        self.bot = bot
     
     def Connecion_DB(self):
         """Establece conexión con la base de datos
@@ -91,7 +93,7 @@ class DB_PokeAPI():
         c = conn.cursor()
         
         instruccion = f"INSERT INTO Pokemons(Nombre, Tipo, Abilidad, Movimientos) VALUES(?,?,?,?)"
-        c.execute(instruccion, (Pokemon, Tipo, json.dumps(Abilidad), json.dumps(Movimientos)))
+        c.execute(instruccion, (Pokemon, Tipo, json.dumps(Abilidad, ensure_ascii=False), json.dumps(Movimientos, ensure_ascii=False)))
         
         conn.commit()
         conn.close()
@@ -121,7 +123,7 @@ class DB_PokeAPI():
         
         instruccion = f"INSERT INTO Movimientos(Nombre, Tipo, Tipo_Daño, Efecto, PP, Potencia, Precicion) VALUES (?, ?, ?, ?, ?, ?, ?)"
         c.execute(instruccion, (Moviemiento["Nombre"], Moviemiento["Tipo"], Moviemiento["Tipo_Daño"], 
-                              json.dumps(Moviemiento["Efecto"]), Moviemiento["PP"], 
+                              json.dumps(Moviemiento["Efecto"], ensure_ascii=False), Moviemiento["PP"], 
                               Moviemiento["Potencia"], Moviemiento["Precicion"]))
         
         conn.commit()
@@ -143,5 +145,63 @@ class DB_PokeAPI():
         conn.commit()
         conn.close()
 
+    def data_pokemon(self, nombre):
+        conn = self.Connecion_DB()
+        c = conn.cursor()
+
+        instruccion = f"SELECT * FROM Pokemons WHERE Nombre = ?"
+        c.execute(instruccion, (nombre,))
+
+        data = c.fetchone()
+
+        conn.commit()
+        conn.close()
+
+        return data
+
+    def data_stat_pokemon(self, nombre):
+        conn = self.Connecion_DB()
+        c = conn.cursor()
+
+        instruccion = f"SELECT * FROM StatsBase WHERE Nombre = ?"
+        c.execute(instruccion, (nombre,))
+
+        data = c.fetchone()
+
+        conn.commit()
+        conn.close()
+
+        return data
+    
+    def data_movimientos(self, nombre):
+        conn = self.Connecion_DB()
+        c = conn.cursor()
+
+        instruccion = f"SELECT * FROM Movimientos WHERE Nombre = ?"
+        c.execute(instruccion, (nombre,))
+
+        data = c.fetchone()
+
+        conn.commit()
+        conn.close()
+
+        return data
+
+    def data_natulazesa(self, ID):
+        conn = self.Connecion_DB()
+        c = conn.cursor()
+
+        instruccion = f"SELECT * FROM Naturalezas WHERE ID = ?"
+        c.execute(instruccion, (ID,))
+
+        data = c.fetchone()
+
+        conn.commit()
+        conn.close()
+
+        return data
+
 if __name__ == "__main__":
     api = DB_PokeAPI()
+    s = api.data_stat_pokemon(4)
+    print(s)
